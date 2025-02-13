@@ -23,5 +23,5 @@ if uploaded_file is not None:
       suffix="Kevin"
     )
 
-model_selected = st.selectox("Selectionnez un modèle", [client.fine_tuning.jobs.list(limit=10).data[u].fine_tuned_model for u in range(5)])
+model_selected = st.st.selectbox("Selectionnez un modèle", [client.fine_tuning.jobs.list(limit=10).data[u].fine_tuned_model for u in range(5)])
 
