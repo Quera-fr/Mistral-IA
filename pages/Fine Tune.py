@@ -20,8 +20,18 @@ if uploaded_file is not None:
     fine_tuned_model = client.fine_tuning.jobs.create(
       training_file=upload_file.id,
       model="gpt-4o-2024-08-06",
-      suffix="Kevin"
+      suffix="Streamlit"
     )
 
 model_selected = st.selectbox("Selectionnez un modèle", [client.fine_tuning.jobs.list(limit=10).data[u].fine_tuned_model for u in range(5)])
 
+prompt = st.text_input("Entrez votre texte")
+
+if st.button("Envoyer"):
+    completion = client.chat.completions.create(
+      model=model_selected,
+      messages=[
+        {"role": "user", "content": prompt}
+      ]
+    )
+    st.write(completion.choices[0].message.content)
