@@ -10,11 +10,18 @@ client = OpenAI(api_key=api_key)
 # Préparation des données pour l'entrainement d'un modèle ChatCompletion
 uploaded_file = st.file_uploader("Choose a file")
 if uploaded_file is not None:
-    # To read file as bytes:
-    st.write(uploaded_file)
-    bytes_data = uploaded_file.getvalue()
-
+    # Upload du fichier d'entrainement
     upload_file = client.files.create(
-          file=bytes_data,
+          file=uploaded_file.getvalue(),
           purpose="fine-tune"
         )
+
+    # Fine tuning du modèle
+    fine_tuned_model = client.fine_tuning.jobs.create(
+      training_file=upload_file.id,
+      model="gpt-4o-2024-08-06",
+      suffix="Kevin"
+    )
+
+model_selected = st.selectox("Selectionnez un modèle", [client.fine_tuning.jobs.list(limit=10).data[u].fine_tuned_model for u in range(5)])
+
