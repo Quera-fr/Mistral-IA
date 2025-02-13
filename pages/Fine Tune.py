@@ -3,7 +3,7 @@ from openai import OpenAI
 
 st.title("Fine Tuning with OpenAI")
 
-api_key = st.input_text("Your API_KEY")
+api_key = st.text_input("Your API_KEY")
 
 client = OpenAI(api_key=api_key)
 
