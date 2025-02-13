@@ -8,7 +8,7 @@ api_key = st.text_input("Your API_KEY")
 client = OpenAI(api_key=api_key)
 
 
-st.checkbox('Fine tuning'):
+if st.checkbox('Fine tuning'):
     # Préparation des données pour l'entrainement d'un modèle ChatCompletion
     uploaded_file = st.file_uploader("Choose a file")
     if uploaded_file is not None:
@@ -25,7 +25,7 @@ st.checkbox('Fine tuning'):
           suffix="Streamlit"
         )
 
-st.checkbox('Utilisation du modèle Fine Tuné'):
+if st.checkbox('Utilisation du modèle Fine Tuné'):
     model_selected = st.selectbox("Selectionnez un modèle", [client.fine_tuning.jobs.list(limit=10).data[u].fine_tuned_model for u in range(5)])
     
     prompt = st.text_input("Entrez votre texte")
