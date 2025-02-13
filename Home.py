@@ -5,3 +5,5 @@ st.title("Mistral AI")
 
 
 prompt = st.text_input("Entrez votre text")
+
+st.write(prompt)
